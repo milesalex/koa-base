@@ -1,21 +1,22 @@
 require('dotenv').config();
 const Koa = require('koa');
 const debug = require('debug')('app:server');
-
-// Database
-require('./db');
+const models = require('./db/models');
 
 const app = new Koa();
 const PORT = 1337;
 
-app.use(async (ctx) => {
-  ctx.body = {
-    status: 'success',
-    message: 'hello, world!',
-  };
-});
+// Database
+// require('./db');
 
-const server = app.listen(PORT, () => {
+const indexRoutes = require('./routes/index');
+const credentialRoutes = require('./routes/credentials');
+
+app.use(indexRoutes.routes());
+app.use(credentialRoutes.routes());
+
+const server = app.listen(PORT, async () => {
+  await models.sequelize.sync();
   debug(`Server listening on port: ${PORT}`);
 });
 
