@@ -9,14 +9,14 @@ module.exports = {
         {
           type: 'gdax',
           credentials: JSON.stringify({ key: 'abc', secret: 'xyz' }),
-          readOnly: true,
+          read_only: true,
           created_at: new Date(),
           updated_at: new Date(),
         },
         {
           type: 'coinbase',
           credentials: JSON.stringify({ key: 'abc', secret: 'xyz' }),
-          readOnly: true,
+          read_only: true,
           created_at: new Date(),
           updated_at: new Date(),
         },

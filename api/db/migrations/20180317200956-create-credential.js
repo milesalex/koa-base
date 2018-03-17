@@ -13,23 +13,23 @@ module.exports = {
       credentials: {
         type: Sequelize.JSON,
       },
-      readOnly: {
+      read_only: {
         type: Sequelize.BOOLEAN,
       },
-      lastRefreshRequest: {
+      last_refresh_request: {
         type: Sequelize.DATE,
       },
-      lastRefreshError: {
+      last_refresh_error: {
         type: Sequelize.DATE,
       },
-      lastRefreshSuccess: {
+      last_refresh_success: {
         type: Sequelize.DATE,
       },
-      createdAt: {
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE,
       },
-      updatedAt: {
+      updated_at: {
         allowNull: false,
         type: Sequelize.DATE,
       },

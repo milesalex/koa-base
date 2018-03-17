@@ -4,10 +4,10 @@ module.exports = function exports(sequelize, DataTypes) {
     {
       type: DataTypes.STRING,
       credentials: DataTypes.JSON,
-      readOnly: DataTypes.BOOLEAN,
-      lastRefreshRequest: DataTypes.DATE,
-      lastRefreshError: DataTypes.DATE,
-      lastRefreshSuccess: DataTypes.DATE,
+      readOnly: { type: DataTypes.BOOLEAN, field: 'read_only' },
+      lastRefreshRequest: { type: DataTypes.DATE, field: 'last_refresh_request' },
+      lastRefreshError: { type: DataTypes.DATE, field: 'last_refresh_error' },
+      lastRefreshSuccess: { type: DataTypes.DATE, field: 'last_refresh_success' },
     },
     {
       paranoid: false,
