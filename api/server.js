@@ -1,5 +1,6 @@
 require('dotenv').config();
 const Koa = require('koa');
+const debug = require('debug')('app:server');
 
 // Database
 require('./db');
@@ -15,7 +16,7 @@ app.use(async (ctx) => {
 });
 
 const server = app.listen(PORT, () => {
-  console.log(`Server listening on port: ${PORT}`);
+  debug(`Server listening on port: ${PORT}`);
 });
 
 module.exports = server;
