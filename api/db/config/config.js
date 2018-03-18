@@ -9,12 +9,13 @@ module.exports = {
     },
   },
   test: {
-    username: 'root',
-    password: null,
-    database: 'koa_api_test',
-    host: '127.0.0.1',
     dialect: 'postgres',
     use_env_variable: 'DATABASE_URL',
+    logging: false,
+    operatorsAliases: false,
+    dialectOptions: {
+      ssl: false,
+    },
   },
   production: {
     username: 'root',

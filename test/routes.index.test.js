@@ -1,26 +1,21 @@
-process.env.NODE_ENV = 'test';
+process.env.NODE_ENV = 'development';
 
-const chai = require('chai');
-const should = chai.should();
-const chaiHttp = require('chai-http');
-chai.use(chaiHttp);
-
+// require the Koa server
 const server = require('../api/server');
 
-describe('routes : index', () => {
-  describe('GET /', () => {
-    it('should return json', done => {
-      chai
-        .request(server)
-        .get('/')
-        .end((err, res) => {
-          should.not.exist(err);
-          res.status.should.eql(200);
-          res.type.should.eql('application/json');
-          res.body.status.should.equal('success');
-          res.body.message.should.eql('hello, world!');
-          done();
-        });
-    });
+// require supertest
+const request = require('supertest');
+
+// close the server after each test
+afterEach(() => {
+  server.close();
+});
+
+describe('routes: index', () => {
+  test('should respond as expected', async () => {
+    const response = await request(server).get('/');
+    expect(response.status).toEqual(200);
+    expect(response.type).toEqual('application/json');
+    expect(response.body.message).toEqual('hello, world!');
   });
 });
