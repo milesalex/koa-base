@@ -14,12 +14,12 @@ const request = require('supertest');
 //   console.log('stderr:', stderr);
 // });
 
-describe('routes: credentials', () => {
-  test('should respond as expected', async () => {
+describe('GET /api/credentials', () => {
+  test('should return all credentials', async () => {
     const response = await request(server).get('/api/credentials');
     expect(response.status).toEqual(200);
     expect(response.type).toEqual('application/json');
-    expect(response.body.data.length).toEqual(2);
+    expect(response.body.data.length).toBeGreaterThan(0);
     expect(response.body.status).toEqual('success');
 
     expect(response.body.data[0]).toHaveProperty('type');
@@ -28,7 +28,9 @@ describe('routes: credentials', () => {
     expect(response.body.data[0]).toHaveProperty('lastRefreshSuccess');
     expect(response.body.data[0]).toHaveProperty('lastRefreshError');
   });
+});
 
+describe('GET /api/credentials/1', () => {
   test('should respond with a single credential', async () => {
     const response = await request(server).get('/api/credentials/1');
 
@@ -50,6 +52,40 @@ describe('routes: credentials', () => {
     expect(response.type).toEqual('application/json');
     expect(response.body.status).toEqual('error');
     expect(response.body.message).toEqual("That credential doesn't exist");
+  });
+});
+
+describe('POST /api/credential', () => {
+  test('should return the credential that was added', async () => {
+    const response = await request(server)
+      .post('/api/credentials')
+      .send({
+        type: 'bittrex',
+        credentials: { key: 'abc', secret: 'xyz' },
+        readOnly: true,
+      });
+
+    expect(response.status).toEqual(201);
+    expect(response.type).toEqual('application/json');
+    expect(response.body.status).toEqual('success');
+
+    expect(response.body.data).toHaveProperty('type');
+    expect(response.body.data).toHaveProperty('credentials');
+    expect(response.body.data).toHaveProperty('lastRefreshRequest');
+    expect(response.body.data).toHaveProperty('lastRefreshSuccess');
+    expect(response.body.data).toHaveProperty('lastRefreshError');
+  });
+
+  test('should throw an error if the payload is malformed', async () => {
+    const response = await request(server)
+      .post('/api/credentials')
+      .send({
+        name: 'bittrex',
+      });
+
+    expect(response.status).toEqual(400);
+    expect(response.type).toEqual('application/json');
+    expect(response.body.status).toEqual('error');
   });
 });
 
