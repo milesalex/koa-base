@@ -64,4 +64,41 @@ router.post(`${BASE_URL}`, async (ctx) => {
   }
 });
 
+// PUT
+router.put(`${BASE_URL}/:id`, async (ctx) => {
+  const { type, credentials } = ctx.request.body;
+
+  try {
+    const credential = await models.Credential.update(
+      { type, credentials },
+      {
+        where: { id: ctx.params.id },
+        returning: true,
+      },
+    );
+
+    if (credential) {
+      ctx.status = 200;
+      ctx.body = {
+        status: 'success',
+        data: credential,
+      };
+    } else {
+      ctx.status = 404;
+      ctx.body = {
+        status: 'error',
+        message: 'That credential does not exist.',
+      };
+    }
+  } catch (err) {
+    console.log(err);
+
+    ctx.status = 400;
+    ctx.body = {
+      status: 'error',
+      message: err.message || 'Sorry, an error has occurred.',
+    };
+  }
+});
+
 module.exports = router;
