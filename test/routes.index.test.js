@@ -1,4 +1,4 @@
-process.env.NODE_ENV = 'test';
+process.env.NODE_ENV = 'development';
 process.env.PORT = 1440;
 
 // require the Koa server

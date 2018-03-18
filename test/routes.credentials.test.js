@@ -1,4 +1,4 @@
-process.env.NODE_ENV = 'test';
+process.env.NODE_ENV = 'development';
 process.env.PORT = 1440;
 
 // require the Koa server
@@ -34,7 +34,9 @@ describe('GET /api/credentials', () => {
 
 describe('GET /api/credentials/1', () => {
   test('should respond with a single credential', async () => {
-    const response = await request(server).get('/api/credentials/1');
+    const credentials = await models.Credential.findAll();
+    const credential = credentials[0];
+    const response = await request(server).get(`/api/credentials/${credential.id}`);
 
     expect(response.status).toEqual(200);
     expect(response.type).toEqual('application/json');

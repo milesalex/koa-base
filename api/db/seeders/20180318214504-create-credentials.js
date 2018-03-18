@@ -1,8 +1,5 @@
 module.exports = {
-  up(queryInterface) {
-    // Add altering commands here.
-    // Return a promise to correctly handle asynchronicity.
-
+  up(queryInterface, Sequelize) {
     return queryInterface.bulkInsert(
       'credential',
       [
@@ -25,10 +22,7 @@ module.exports = {
     );
   },
 
-  down(queryInterface) {
-    // Add reverting commands here.
-    // Return a promise to correctly handle asynchronicity.
-
-    return queryInterface.bulkDelete('Credential', null, {});
+  down(queryInterface, Sequelize) {
+    return queryInterface.bulkDelete('credential', null, {});
   },
 };
