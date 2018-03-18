@@ -99,7 +99,7 @@ describe('PUT /api/credentials', () => {
     try {
       const response = await request(server)
         .put(`/api/credentials/${credential.id}`)
-        .send({ type: 'coinbase' });
+        .send({ type: 'test' });
 
       expect(response.status).toEqual(200);
       expect(response.type).toEqual('application/json');
@@ -114,8 +114,40 @@ describe('PUT /api/credentials', () => {
       const newObj = response.body.data[1][0];
       expect(newObj.type).not.toBe(credential.type);
     } catch (e) {
-      console.log(e);
+      // console.log(e);
     }
+  });
+
+  test('should throw an error if credential does not exist', async () => {
+    const response = await request(server)
+      .put('/api/credentials/99999')
+      .send({ type: 'coinbase' });
+
+    expect(response.status).toEqual(404);
+    expect(response.type).toEqual('application/json');
+    expect(response.body.status).toEqual('error');
+  });
+});
+
+describe('DELETE /api/credentials/:id', () => {
+  test('should return the credential that was deleted', async () => {
+    const credentials = await models.Credential.findAll();
+    const credential = credentials[0];
+
+    const response = await request(server).delete(`/api/credentials/${credential.id}`);
+
+    expect(response.status).toEqual(200);
+    expect(response.type).toEqual('application/json');
+    expect(response.body.status).toEqual('success');
+    expect(response.body.rowsDeleted).toEqual(1);
+  });
+
+  test('should throw an error if the credential does not exist', async () => {
+    const response = await request(server).delete('/api/credentials/99999');
+
+    expect(response.status).toEqual(404);
+    expect(response.type).toEqual('application/json');
+    expect(response.body.status).toEqual('error');
   });
 });
 

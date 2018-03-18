@@ -77,7 +77,7 @@ router.put(`${BASE_URL}/:id`, async (ctx) => {
       },
     );
 
-    if (credential) {
+    if (credential && credential[0] > 0) {
       ctx.status = 200;
       ctx.body = {
         status: 'success',
@@ -91,9 +91,34 @@ router.put(`${BASE_URL}/:id`, async (ctx) => {
       };
     }
   } catch (err) {
-    console.log(err);
-
     ctx.status = 400;
+    ctx.body = {
+      status: 'error',
+      message: err.message || 'Sorry, an error has occurred.',
+    };
+  }
+});
+
+router.delete(`${BASE_URL}/:id`, async (ctx) => {
+  try {
+    const credential = await models.Credential.destroy({ where: { id: ctx.params.id } });
+
+    if (credential && credential > 0) {
+      ctx.status = 200;
+      ctx.body = {
+        status: 'success',
+        rowsDeleted: credential,
+      };
+    } else {
+      ctx.status = 404;
+      ctx.body = {
+        status: 'error',
+        message: 'That credential does not exist.',
+      };
+    }
+  } catch (err) {
+    ctx.status = 400;
+    ctx.type = 'application/json';
     ctx.body = {
       status: 'error',
       message: err.message || 'Sorry, an error has occurred.',
