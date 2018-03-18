@@ -8,7 +8,7 @@ const indexRoutes = require('./routes/index');
 const credentialRoutes = require('./routes/credentials');
 
 const app = new Koa();
-const PORT = 1337;
+const PORT = process.env.PORT || 1337;
 
 app.use(bodyParser());
 app.use(indexRoutes.routes());
