@@ -28,5 +28,14 @@ module.exports = function exports(sequelize, DataTypes) {
       },
     },
   );
+
+  User.findByEmail = function findByEmail(email) {
+    return User.findOne({
+      where: {
+        email,
+      },
+    });
+  };
+
   return User;
 };

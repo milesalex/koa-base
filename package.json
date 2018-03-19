@@ -5,21 +5,28 @@
   "private": true,
   "license": "ISC",
   "scripts": {
-    "start": "nodemon ./api/server.js",
+    "start": "nodemon --inspect ./api/server.js",
     "test": "jest --watch"
   },
   "jest": {
     "testEnvironment": "node"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "debug": "^3.1.0",
     "dotenv": "^5.0.1",
     "koa": "^2.5.0",
     "koa-bodyparser": "^4.2.0",
+    "koa-json": "^2.0.2",
+    "koa-passport": "^4.0.1",
     "koa-router": "^7.4.0",
+    "koa-session": "^5.8.1",
+    "passport-json": "^1.2.0",
+    "passport-local": "^1.0.0",
     "pg": "^7.4.1",
     "pg-hstore": "^2.3.2",
-    "sequelize": "^4.37.1"
+    "sequelize": "^4.37.1",
+    "umzug": "^2.1.0"
   },
   "devDependencies": {
     "eslint": "^4.19.0",

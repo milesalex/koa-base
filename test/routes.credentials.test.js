@@ -7,14 +7,17 @@ const server = require('../api/server');
 // require supertest
 const request = require('supertest');
 const models = require('../api/db/models');
-// const util = require('util');
-// const exec = util.promisify(require('child_process').exec);
+// const umzug = require('./umzug');
 
-// beforeAll(async () => {
-//   const { stdout, stderr } = await exec('cd api/db; sequelize db:seed:all');
-//   console.log('stdout:', stdout);
-//   console.log('stderr:', stderr);
-// });
+beforeEach(async () => {
+  // await umzug.down({ to: 0 });
+  // await umzug.up();
+});
+
+afterEach(async () => {
+  // await umzug.down({ to: 0 });
+  server.close();
+});
 
 describe('GET /api/credentials', () => {
   test('should return all credentials', async () => {
@@ -152,13 +155,3 @@ describe('DELETE /api/credentials/:id', () => {
     expect(response.body.status).toEqual('error');
   });
 });
-
-afterEach(() => {
-  server.close();
-});
-
-// afterAll(async () => {
-//   const { stdout, stderr } = await exec('cd api/db; && sequelize db:seed:undo:all');
-//   console.log('stdout:', stdout);
-//   console.log('stderr:', stderr);
-// });
