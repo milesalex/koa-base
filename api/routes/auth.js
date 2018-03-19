@@ -12,8 +12,9 @@ router.get('/auth/register', async (ctx) => {
 });
 
 router.post('/auth/register', async (ctx) => {
-  const user = await models.User.create(ctx.request.body);
   try {
+    const user = await models.User.create(ctx.request.body);
+
     if (user) {
       ctx.login(user);
       ctx.redirect('/auth/status');
@@ -22,7 +23,11 @@ router.post('/auth/register', async (ctx) => {
       ctx.body = { status: 'error' };
     }
   } catch (err) {
-    console.log(err);
+    ctx.status = 400;
+    ctx.body = {
+      status: 'error',
+      message: err.message || 'Sorry, an error has occurred.',
+    };
   }
 });
 
@@ -32,6 +37,15 @@ router.get('/auth/status', async (ctx) => {
     ctx.body = fs.createReadStream('./api/views/status.html');
   } else {
     ctx.redirect('/auth/login');
+  }
+});
+
+router.get('/auth/login', async (ctx) => {
+  if (!ctx.isAuthenticated()) {
+    ctx.type = 'html';
+    ctx.body = fs.createReadStream('./api/views/login.html');
+  } else {
+    ctx.redirect('/auth/status');
   }
 });
 

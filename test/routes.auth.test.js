@@ -4,9 +4,17 @@ process.env.PORT = 1440;
 // require the Koa server
 const server = require('../api/server');
 const request = require('supertest');
-const models = require('../api/db/models');
+// const models = require('../api/db/models');
+// const umzug = require('./umzug');
+
+beforeEach(async () => {
+  // const down = await umzug.down({ to: 0 });
+  // const up = await umzug.up();
+});
 
 afterEach(async () => {
+  // const down = await umzug.down({ to: 0 });
+  // console.log(down);
   server.close();
 });
 
@@ -14,7 +22,7 @@ describe('GET /auth/register', () => {
   test('should render the register view', async () => {
     const response = await request(server).get('/auth/register');
 
-    expect(response.redirects.length).toEqual(0);
+    expect(response.redirect).toEqual(false);
     expect(response.status).toEqual(200);
     expect(response.type).toEqual('text/html');
     expect(response.text).toContain('<h1>Register</h1>');
@@ -32,5 +40,30 @@ describe('POST /auth/register', () => {
       });
 
     expect(response.redirect).toEqual(true);
+  });
+
+  test('should throw an error if a user already exists', async () => {
+    const response = await request(server)
+      .post('/auth/register')
+      .send({
+        email: 'michael',
+        password: 'herman',
+      });
+
+    expect(response.status).toEqual(400);
+    expect(response.body.status).toEqual('error');
+    expect(response.body.message).toEqual('Validation error');
+  });
+});
+
+describe('GET /auth/login', () => {
+  test('should render the login view', async () => {
+    const response = await request(server).get('/auth/login');
+
+    expect(response.redirect).toEqual(false);
+    expect(response.status).toEqual(200);
+    expect(response.type).toEqual('text/html');
+    expect(response.text).toContain('<h1>Login</h1>');
+    expect(response.text).toContain('<button type="submit">Log In</button>');
   });
 });

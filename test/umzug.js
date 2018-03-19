@@ -14,7 +14,7 @@ const umzug = new Umzug({
         throw new Error('Migration tried to use old style "done" callback. Please upgrade to "umzug" and return a promise instead.');
       },
     ],
-    path: '../api/db/migrations/',
+    path: './api/db/migrations/',
     pattern: /\.js$/,
   },
 });
