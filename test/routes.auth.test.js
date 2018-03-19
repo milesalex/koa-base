@@ -4,12 +4,11 @@ process.env.PORT = 1440;
 // require the Koa server
 const server = require('../api/server');
 const request = require('supertest');
-// const models = require('../api/db/models');
+const models = require('../api/db/models');
 // const umzug = require('./umzug');
 
-beforeEach(async () => {
-  // const down = await umzug.down({ to: 0 });
-  // const up = await umzug.up();
+beforeAll(async () => {
+  models.sequelize.sync();
 });
 
 afterEach(async () => {
@@ -32,6 +31,10 @@ describe('GET /auth/register', () => {
 
 describe('POST /auth/register', () => {
   test('should register a new user', async () => {
+    const users = await models.User.findAll();
+
+    expect(users.length).toBe(0);
+
     const response = await request(server)
       .post('/auth/register')
       .send({
