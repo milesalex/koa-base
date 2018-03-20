@@ -1,6 +1,13 @@
 language: node_js
 node_js:
   - 9
+install:
+- yarn
+cache: 
+  directories:
+  - "node_modules"
+services: 
+  - postgresql
 postgres:
   adapter: postgresql
   database: koa_base

@@ -12,10 +12,7 @@
     "testEnvironment": "node"
   },
   "dependencies": {
-    "babel-cli": "^6.26.0",
     "bcryptjs": "^2.4.3",
-    "child-process-es6-promise": "^1.2.0",
-    "child-process-promise": "^2.2.1",
     "debug": "^3.1.0",
     "dotenv": "^5.0.1",
     "koa": "^2.5.0",
