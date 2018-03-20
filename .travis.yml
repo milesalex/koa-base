@@ -1,11 +1,10 @@
 language: node_js
 node_js:
   - 9
-install:
-- yarn
-cache: 
+cache:
+  yarn: true
   directories:
-  - "node_modules"
+    - node_modules
 services: 
   - postgresql
 postgres:
