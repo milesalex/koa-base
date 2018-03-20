@@ -1,6 +1,3 @@
-process.env.NODE_ENV = 'development';
-process.env.PORT = 1440;
-
 // require the Koa server
 const server = require('../api/server');
 const request = require('supertest');
