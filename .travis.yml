@@ -1,5 +1,10 @@
 language: node_js
 node_js:
-  - 7
-  - 8
   - 9
+postgres:
+  adapter: postgresql
+  database: koa_base
+  username: postgres
+before_script:
+  - "psql -c 'create database koa_base;' -U postgres"
+  - "sequelize db:migrate"
