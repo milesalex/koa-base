@@ -11,6 +11,7 @@ postgres:
   adapter: postgresql
   database: koa_base
   username: postgres
+script: yarn test
 before_script:
   - "psql -c 'create database koa_base;' -U postgres"
   - "yarn global add sequelize-cli"
