@@ -7,4 +7,4 @@ postgres:
   username: postgres
 before_script:
   - "psql -c 'create database koa_base;' -U postgres"
-  - "sequelize db:migrate"
+  - "cd api/db && sequelize db:migrate"
