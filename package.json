@@ -5,7 +5,7 @@
   "private": true,
   "license": "ISC",
   "scripts": {
-    "start": "nodemon --inspect ./api/server.js",
+    "start": "nodemon ./api/server.js",
     "test": "jest --forceExit"
   },
   "jest": {
