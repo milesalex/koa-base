@@ -8,4 +8,5 @@ postgres:
 before_script:
   - "psql -c 'create database koa_base;' -U postgres"
   - "yarn add sequelize-cli"
-  - "cd api/db && sequelize db:migrate"
+  - "cd api/db"
+  - "sequelize db:migrate"
