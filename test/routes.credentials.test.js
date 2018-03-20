@@ -16,8 +16,8 @@ beforeAll(async () => {
   }
 });
 
-afterEach(() => {
-  server.close();
+afterEach(async () => {
+  await server.close();
 });
 
 describe('GET /api/credentials', () => {

@@ -5,8 +5,8 @@ const server = require('../api/server');
 const request = require('supertest');
 
 // close the server after each test
-afterEach(() => {
-  server.close();
+afterEach(async () => {
+  await server.close();
 });
 
 describe('routes: index', () => {

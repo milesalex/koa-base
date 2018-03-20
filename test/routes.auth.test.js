@@ -11,7 +11,7 @@ beforeAll(async () => {
 afterEach(async () => {
   // const down = await umzug.down({ to: 0 });
   // console.log(down);
-  server.close();
+  await server.close();
 });
 
 describe('GET /auth/register', () => {

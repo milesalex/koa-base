@@ -6,7 +6,7 @@
   "license": "ISC",
   "scripts": {
     "start": "nodemon --inspect ./api/server.js",
-    "test": "jest"
+    "test": "jest --forceExit"
   },
   "jest": {
     "testEnvironment": "node"
