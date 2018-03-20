@@ -17,8 +17,3 @@ before_script:
   - "yarn global add sequelize-cli"
   - "cd api/db"
   - "sequelize db:migrate"
-env:
-  - DATABASE_URL=postgres://postgres@localhost:5432/koa_base
-  - NODE_ENV=test
-  - DEBUG=app:*
-  - SESSION_SECRET=super-secret-key
