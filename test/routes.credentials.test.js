@@ -7,15 +7,19 @@ const server = require('../api/server');
 // require supertest
 const request = require('supertest');
 const models = require('../api/db/models');
-// const umzug = require('./umzug');
+const sequelizeFixtures = require('sequelize-fixtures');
+const data = require('./fixtures/credentials');
 
-beforeEach(async () => {
-  // await umzug.down({ to: 0 });
-  // await umzug.up();
+beforeAll(async () => {
+  try {
+    await models.sequelize.sync({ force: true });
+    await sequelizeFixtures.loadFixtures(data, models);
+  } catch (err) {
+    console.log(err);
+  }
 });
 
-afterEach(async () => {
-  // await umzug.down({ to: 0 });
+afterEach(() => {
   server.close();
 });
 
