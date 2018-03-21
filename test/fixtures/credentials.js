@@ -3,7 +3,7 @@ module.exports = [
     model: 'Credential',
     data: {
       type: 'gdax',
-      credentials: { key: 'abc', secret: 'xyz' },
+      credentials: JSON.stringify({ key: 'abc', secret: 'xyz' }),
       readOnly: true,
     },
   },
@@ -11,7 +11,7 @@ module.exports = [
     model: 'Credential',
     data: {
       type: 'coinbase',
-      credentials: { key: 'abc', secret: 'xyz' },
+      credentials: JSON.stringify({ key: 'abc', secret: 'xyz' }),
       readOnly: true,
     },
   },
