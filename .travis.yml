@@ -7,6 +7,8 @@ cache:
     - node_modules
 services: 
   - postgresql
+addons:
+  postgresql: "9.6"
 postgres:
   adapter: postgresql
   database: koa_base
