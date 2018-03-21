@@ -3,7 +3,7 @@ module.exports = function exports(sequelize, DataTypes) {
     'Credential',
     {
       type: { type: DataTypes.STRING, allowNull: false },
-      credentials: { type: DataTypes.JSON, allowNull: true },
+      credentials: { type: DataTypes.JSONB, allowNull: true },
       readOnly: { type: DataTypes.BOOLEAN, field: 'read_only' },
       lastRefreshRequest: { type: DataTypes.DATE, field: 'last_refresh_request' },
       lastRefreshError: { type: DataTypes.DATE, field: 'last_refresh_error' },

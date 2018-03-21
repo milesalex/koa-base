@@ -11,7 +11,7 @@ module.exports = {
         type: Sequelize.STRING,
       },
       credentials: {
-        type: Sequelize.JSON,
+        type: Sequelize.JSONB,
       },
       read_only: {
         type: Sequelize.BOOLEAN,
