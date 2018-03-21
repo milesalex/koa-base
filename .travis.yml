@@ -16,4 +16,5 @@ before_script:
   - "psql -c 'create database koa_base;' -U postgres"
   - "yarn global add sequelize-cli"
   - "cd api/db"
+  - "sequelize db:migrate:undo"
   - "sequelize db:migrate"
